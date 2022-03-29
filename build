@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+pom=./pom.xml
+version=$1
+
+if [ -z $version ];
+then
+  printf "Please enter a version: ex. 2.5.4\n"
+  exit 1
+fi
+
+
+if [ -f $pom ];
+then
+  mvn versions:set -DnewVersion=$version
+  mvn clean install
+else
+  printf "There is no pom.xml in $(pwd)\n"
+  exit 1
+fi
+
